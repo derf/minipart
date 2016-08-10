@@ -19,8 +19,9 @@ my $re_part = qr{
 	(?<amount> \S+ )
 	\s* [|] \s*
 	(?<description> [^|]+ )
-	(?:
-		\s* [|] (?<tags> .* )
+	\s*
+	(
+		[|] \s* (?<tags> .* )
 	)?
 	$
 }x;
@@ -39,13 +40,14 @@ sub read_parts {
 				id          => $id,
 				location    => $+{place},
 			);
+			if ( $+{tags} ) {
+				$part{tags} = $+{tags};
+			}
 			if ( $part{amount} =~ m{ \d+ }x ) {
 				$part{amount}      = int( $part{amount} );
 				$part{amountIsInt} = 1;
 			}
-			if ( $+{tags} ) {
-				$part{tags} = $+{tags};
-			}
+			$part{description} =~ s{ \s+ $ }{}x;
 			push( @parts, \%part );
 			$id++;
 		}
