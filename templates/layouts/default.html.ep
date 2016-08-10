@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>minipart</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	%= stylesheet '/css/materialize.min.css'
+	%= stylesheet '/css/material-icons.css'
+	%= stylesheet '/css/local.css'
+	%= javascript '/js/jquery-2.2.4.min.js'
+	%= javascript '/js/materialize.min.js'
+</head>
+<body>
+
+<nav class="green">
+	<div class="nav-wrapper container">
+		<a href="/" class="brand-logo">minipart</a>
+<!--		<ul id="nav-mobile" class="right hide-on-small-and-down">
+		<li><a href="/add">Add File</a></li>
+		<li><a href="/list">List</a></li>
+		</ul>-->
+	</div>
+</nav>
+
+<div class="container">
+%= content
+</div>
+
+</body>
+</html>

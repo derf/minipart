@@ -1,0 +1,23 @@
+<div class="row" style="margin-top: 1em;">
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Ort</th>
+        <th>Anzahl</th>
+        <th>Bauteil</th>
+      </tr>
+    </thead>
+    <tbody>
+    % for my $part (@{$parts}) {
+      <tr>
+        <td><%= $part->{location} %></td>
+        <td><%= $part->{amount} %></td>
+        <td><%= $part->{description} %></td>
+      </tr>
+    % }
+    </tbody>
+  </table>
+</div>
+<div class="fixed-action-btn" style="bottom: 45px; right: 25px;">
+  <a class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a>
+</div>
