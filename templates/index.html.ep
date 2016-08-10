@@ -9,10 +9,21 @@
     </thead>
     <tbody>
     % for my $part (@{$parts}) {
-      <tr>
-        <td><%= $part->{location} %></td>
-        <td><%= $part->{amount} %></td>
-        <td><%= $part->{description} %></td>
+      <tr id="p<%= $part->{id} %>" data-part='<%= jsonify($part) %>'>
+        <td class="location"><%= $part->{location} %></td>
+        <td class="amount">
+          % if ($part->{amountIsInt}) {
+            <a class="waves-effect waves-green btn-flat amountplus">+</a>
+          % }
+          <span class="amount"><%= $part->{amount} %></span>
+          % if ($part->{amountIsInt}) {
+            <a class="waves-effect waves-green btn-flat amountminus">-</a>
+          % }
+        </td>
+        <td class="description">
+          <%= $part->{description} %>
+          <a class="waves-effect waves-green btn-flat"><i class="material-icons">edit</i></a>
+        </td>
       </tr>
     % }
     </tbody>

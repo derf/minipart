@@ -9,6 +9,7 @@
 	%= stylesheet '/css/local.css'
 	%= javascript '/js/jquery-2.2.4.min.js'
 	%= javascript '/js/materialize.min.js'
+	%= javascript '/js/edit.js'
 </head>
 <body>
 

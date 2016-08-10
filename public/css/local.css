@@ -1,0 +1,26 @@
+td.location {
+	min-width: 4em;
+}
+
+td.amount {
+	min-width: 8em;
+	text-align: center;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+td.description a {
+	float: right;
+}
+
+span.amount {
+	display: inline-block;
+	min-width: 2em;
+	text-align: center;
+}
+
+.amountplus,
+.amountminus {
+	padding-left: 16px;
+	padding-right: 16px;
+}
