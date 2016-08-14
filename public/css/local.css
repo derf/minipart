@@ -9,7 +9,7 @@ td.amount {
 	padding-right: 0;
 }
 
-td.description a {
+td.description form {
 	float: right;
 }
 

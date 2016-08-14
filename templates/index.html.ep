@@ -1,3 +1,9 @@
+% if (flash('status_message')) {
+%= javascript begin
+  Materialize.toast('<%= flash('status_message') %>', 4000);
+% end
+% }
+
 <div class="row" style="margin-top: 1em;">
   <table class="striped">
     <thead>
@@ -22,7 +28,12 @@
         </td>
         <td class="description">
           <%= $part->{description} %>
-          <a class="waves-effect waves-green btn-flat"><i class="material-icons">edit</i></a>
+          %= form_for edit => (method => 'post') => begin
+            %= hidden_field id => $part->{id}
+            <button class="btn-flat waves-effect waves-green" type="submit" name="submit">
+              <i class="material-icons">edit</i>
+            </button>
+          % end
         </td>
       </tr>
     % }
@@ -30,5 +41,5 @@
   </table>
 </div>
 <div class="fixed-action-btn" style="bottom: 45px; right: 25px;">
-  <a class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a>
+  <a href="<%= url_for 'add' %>" class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a>
 </div>

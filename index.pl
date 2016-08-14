@@ -58,6 +58,10 @@ sub read_parts {
 sub write_parts {
 	my (@parts) = @_;
 
+	@parts = map { $_->[0] }
+	  sort { $a->[1] cmp $b->[1] }
+	  map { [ $_, "$_->{location}.$_->{description}" ] } @parts;
+
 	my $buffer = q{};
 
 	for my $part (@parts) {
@@ -96,6 +100,68 @@ post '/ajax/edit' => sub {
 	write_parts(@parts);
 
 	$self->render( json => $parts[$id] );
+};
+
+get '/add' => sub {
+	my ($self) = @_;
+
+	$self->render(
+		'edit',
+		submit_text => 'Add',
+	);
+};
+
+post '/edit' => sub {
+	my ($self) = @_;
+
+	my $data = $self->req->params->to_hash;
+
+	if ( exists $data->{id} and not exists $data->{location} ) {
+		my @parts = read_parts();
+		my $part  = $parts[ $data->{id} ];
+		say "param desc $part->{description} for id $data->{id}";
+		$self->param( id          => $part->{id} );
+		$self->param( location    => $part->{location} );
+		$self->param( amount      => $part->{amount} );
+		$self->param( description => $part->{description} );
+		if ( exists $part->{tags} ) {
+			$self->param( tags => $part->{tags} );
+		}
+	}
+	elsif ( exists $data->{id} and exists $data->{location} ) {
+		my @parts = read_parts();
+		$parts[ $data->{id} ] = {
+			amount      => $data->{amount},
+			description => $data->{description},
+			location    => $data->{location},
+			tags        => $data->{tags},
+		};
+		write_parts(@parts);
+		$self->flash( 'status_message' => 'Part edited successfully' );
+		$self->redirect_to("/#p$data->{id}");
+	}
+	elsif ( exists $data->{location} and exists $data->{description} ) {
+		my @parts = read_parts();
+		my $id    = $#parts + 1;
+		push(
+			@parts,
+			{
+				amount      => $data->{amount},
+				description => $data->{description},
+				id          => $id,
+				location    => $data->{location},
+				tags        => $data->{tags},
+			}
+		);
+		write_parts(@parts);
+		$self->flash( 'status_message' => 'Part added successfully' );
+		$self->redirect_to('add');
+	}
+	else {
+		$self->flash( 'status_message' => 'Missing data' );
+	}
+
+	$self->render( 'edit', );
 };
 
 helper 'jsonify' => sub {

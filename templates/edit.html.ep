@@ -1,0 +1,41 @@
+% if (flash('status_message')) {
+%= javascript begin
+  Materialize.toast('<%= flash('status_message') %>', 4000);
+% end
+% }
+
+%= form_for edit => begin
+  % if (defined param('id')) {
+  %=  hidden_field 'id' => param('id')
+  % }
+  <div class="row">
+    <div class="input-field col s6">
+      %= text_field 'location', class => 'validate', id => 'location'
+      <label for="location">Location</label>
+    </div>
+    <div class="input-field col s6">
+      %= text_field 'amount', class => 'validate', id => 'amount'
+      <label for="amount">Amount</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      %= text_field 'description', class => 'validate', id => 'description'
+      <label for="description">Description</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      %= text_field 'tags', class => 'validate', id => 'tags'
+      <label for="tags">Tags</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 center-align">
+      <button class="btn waves-effect waves-light" type="submit" name="submit">
+        %= stash('submit_text') // 'Update'
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+% end
