@@ -14,7 +14,7 @@
       <label for="location">Location</label>
     </div>
     <div class="input-field col s6">
-      %= text_field 'amount', class => 'validate', id => 'amount'
+      %= number_field 'amount', class => 'validate', id => 'amount', min => 0
       <label for="amount">Amount</label>
     </div>
   </div>
