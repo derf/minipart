@@ -116,7 +116,21 @@ post '/edit' => sub {
 
 	my $data = $self->req->params->to_hash;
 
-	if ( exists $data->{id} and not exists $data->{location} ) {
+	if (    exists $data->{id}
+		and exists $data->{action}
+		and $data->{action} eq 'delete' )
+	{
+		# delete an existing part
+		my @parts = read_parts();
+		splice( @parts, $data->{id}, 1 );
+		write_parts(@parts);
+		$self->flash(
+			'status_message' => "$data->{description} deleted successfully" );
+		$self->redirect_to('/');
+	}
+	elsif ( exists $data->{id} and not exists $data->{location} ) {
+
+		# fill out form to edit an existing part
 		my @parts = read_parts();
 		my $part  = $parts[ $data->{id} ];
 		$self->param( id          => $part->{id} );
@@ -128,6 +142,8 @@ post '/edit' => sub {
 		}
 	}
 	elsif ( exists $data->{id} and exists $data->{location} ) {
+
+		# edit an existing part
 		my @parts = read_parts();
 		$parts[ $data->{id} ] = {
 			amount      => $data->{amount},
@@ -136,10 +152,13 @@ post '/edit' => sub {
 			tags        => $data->{tags},
 		};
 		write_parts(@parts);
-		$self->flash( 'status_message' => 'Part edited successfully' );
+		$self->flash(
+			'status_message' => "$data->{description} edited successfully" );
 		$self->redirect_to("/#p$data->{id}");
 	}
 	elsif ( exists $data->{location} and exists $data->{description} ) {
+
+		# add a new part
 		my @parts = read_parts();
 		my $id    = $#parts + 1;
 		push(
@@ -153,10 +172,12 @@ post '/edit' => sub {
 			}
 		);
 		write_parts(@parts);
-		$self->flash( 'status_message' => 'Part added successfully' );
+		$self->flash(
+			'status_message' => "$data->{description} added successfully" );
 		$self->redirect_to('add');
 	}
 	else {
+		# derp
 		$self->flash( 'status_message' => 'Missing data' );
 	}
 
