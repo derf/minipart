@@ -119,7 +119,6 @@ post '/edit' => sub {
 	if ( exists $data->{id} and not exists $data->{location} ) {
 		my @parts = read_parts();
 		my $part  = $parts[ $data->{id} ];
-		say "param desc $part->{description} for id $data->{id}";
 		$self->param( id          => $part->{id} );
 		$self->param( location    => $part->{location} );
 		$self->param( amount      => $part->{amount} );
