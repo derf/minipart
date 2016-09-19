@@ -10,17 +10,17 @@
   % }
   <div class="row">
     <div class="input-field col s6">
-      %= text_field 'location', class => 'validate', id => 'location'
+      %= text_field 'location', class => 'validate', id => 'location', pattern => '[^ ]*', required => 'required'
       <label for="location">Location</label>
     </div>
     <div class="input-field col s6">
-      %= number_field 'amount', class => 'validate', id => 'amount', min => 0
+      %= number_field 'amount', class => 'validate', id => 'amount', min => 0, required => 'required'
       <label for="amount">Amount</label>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s12">
-      %= text_field 'description', class => 'validate', id => 'description'
+      %= text_field 'description', class => 'validate', id => 'description', pattern => '[^|]*', required => 'required'
       <label for="description">Description</label>
     </div>
   </div>
