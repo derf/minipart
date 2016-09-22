@@ -26,11 +26,22 @@ my $re_part = qr{
 	$
 }x;
 
+my $dbfile = $ENV{MINIPART_DB};
+
+if ( not defined $dbfile ) {
+	say STDERR "Usage: MINIPART_DB=/path/to/db hypnotoad $0";
+	exit 1;
+}
+
 sub read_parts {
 	my @parts;
 	my $id = 0;
 
-	for my $line ( read_file('/home/derf/packages/hardware/var/db') ) {
+	if ( not -e $dbfile ) {
+		return ();
+	}
+
+	for my $line ( read_file($dbfile) ) {
 		$line = decode( 'UTF-8', $line );
 		chomp($line);
 		if ( $line =~ $re_part ) {
@@ -72,8 +83,7 @@ sub write_parts {
 		$buffer .= "\n";
 	}
 
-	write_file( '/home/derf/packages/hardware/var/db',
-		encode( 'UTF-8', $buffer ) );
+	write_file( $dbfile, encode( 'UTF-8', $buffer ) );
 }
 
 get '/' => sub {
