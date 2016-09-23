@@ -8,8 +8,8 @@
   <table class="striped">
     <thead>
       <tr>
-        <th>Ort</th>
-        <th>Anzahl</th>
+        <th style="text-align: center;">Ort</th>
+        <th style="text-align: center;">Anzahl</th>
         <th>Bauteil</th>
       </tr>
     </thead>
@@ -27,7 +27,7 @@
           % }
         </td>
         <td class="description">
-          <%= $part->{description} %>
+          <span><%= $part->{description} %></span>
           %= form_for edit => (method => 'post') => begin
             %= hidden_field id => $part->{id}
             <button class="btn-flat waves-effect waves-green" type="submit" name="submit">
