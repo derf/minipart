@@ -3,6 +3,7 @@ use Mojolicious::Lite;
 use 5.020;
 use Encode qw(decode encode);
 use File::Slurp qw(read_file write_file);
+use List::Util qw(uniq);
 
 my $re_place_declaration = qr{
 	^
@@ -110,6 +111,15 @@ post '/ajax/edit' => sub {
 	write_parts(@parts);
 
 	$self->render( json => $parts[$id] );
+};
+
+get '/ajax/locations' => sub {
+	my ($self) = @_;
+
+	my %locations
+	  = map { $_ => undef } uniq map { $_->{location} } read_parts();
+
+	$self->render( json => \%locations );
 };
 
 get '/add' => sub {

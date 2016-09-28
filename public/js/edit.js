@@ -19,4 +19,9 @@ $(document).ready(function() {
 			updatePart(part.id, data);
 		});
 	});
+
+	$.getJSON('/ajax/locations', function(response) {
+		$('input#location').autocomplete({ data: response });
+	});
+
 });
