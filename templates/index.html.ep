@@ -28,6 +28,9 @@
         </td>
         <td class="description">
           <span><%= $part->{description} %></span>
+          % if (need_more($part)) {
+            <i class="material-icons">warning</i>
+          % }
           %= form_for edit => (method => 'post') => begin
             %= hidden_field id => $part->{id}
             <button class="btn-flat waves-effect waves-green" type="submit" name="submit">

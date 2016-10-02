@@ -1,0 +1,38 @@
+% if (flash('status_message')) {
+%= javascript begin
+  Materialize.toast('<%= flash('status_message') %>', 4000);
+% end
+% }
+
+<div class="row" style="margin-top: 1em;">
+	<table class="striped">
+		<thead>
+			<tr>
+				<th style="text-align: center;">Bauteil</th>
+				<th style="text-align: center;">Anzahl</th>
+			</tr>
+		</thead>
+		<tbody>
+		% for my $part (@{$parts}) {
+			% if (need_more($part)) {
+				<tr id="p<%= $part->{id} %>" data-part='<%= jsonify($part) %>'>
+					<td><%= $part->{tag}{Reichelt} %></td>
+					<td><%= $part->{amount} %></td>
+				</tr>
+			% }
+		% }
+		</tbody>
+	</table>
+</div>
+
+<div class="row">
+	% for my $part (@{$parts}) {
+		% if (need_more($part)) {
+			<tt>
+				| <%= $part->{tag}{Reichelt} %> || <%= $part->{description} %>
+				|| ? || <%= $part->{tag}{ord} %> || || user<br/>
+				|-<br/>
+			</tt>
+		% }
+	% }
+</div>

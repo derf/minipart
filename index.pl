@@ -54,6 +54,10 @@ sub read_parts {
 			);
 			if ( $+{tags} ) {
 				$part{tags} = $+{tags};
+				for my $tag ( split( qr{  }, $part{tags} ) ) {
+					my ( $key, $value ) = split( qr{:}, $tag );
+					$part{tag}{$key} = $value;
+				}
 			}
 			if ( $part{amount} =~ m{ \d+ }x ) {
 				$part{amount}      = int( $part{amount} );
@@ -94,6 +98,17 @@ get '/' => sub {
 
 	$self->render(
 		'index',
+		parts => \@parts,
+	);
+};
+
+get '/order' => sub {
+	my ($self) = @_;
+
+	my @parts = read_parts();
+
+	$self->render(
+		'order',
 		parts => \@parts,
 	);
 };
@@ -208,6 +223,15 @@ helper 'jsonify' => sub {
 	my ( $self, $arg ) = @_;
 
 	return $self->render_to_string( json => $arg );
+};
+
+helper 'need_more' => sub {
+	my ( $self, $part ) = @_;
+
+	if ( exists $part->{tag}{thr} and $part->{amount} < $part->{tag}{thr} ) {
+		return 1;
+	}
+	return 0;
 };
 
 app->config(
