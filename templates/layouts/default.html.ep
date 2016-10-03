@@ -16,10 +16,10 @@
 <nav class="green">
 	<div class="nav-wrapper container">
 		<a href="/" class="brand-logo">minipart</a>
-<!--		<ul id="nav-mobile" class="right hide-on-small-and-down">
-		<li><a href="/add">Add File</a></li>
-		<li><a href="/list">List</a></li>
-		</ul>-->
+		<ul id="nav-mobile" class="right">
+		<li><a href="/add"><i class="material-icons">add</i></a></li>
+		<li><a href="/order"><i class="material-icons">list</i></a></li>
+		</ul>
 	</div>
 </nav>
 
