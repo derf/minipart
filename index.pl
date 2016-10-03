@@ -161,7 +161,7 @@ post '/edit' => sub {
 		splice( @parts, $data->{id}, 1 );
 		write_parts(@parts);
 		$self->flash(
-			'status_message' => "$data->{description} deleted successfully" );
+			'status_message' => "$data->{description} gelöscht" );
 		$self->redirect_to('/');
 	}
 	elsif ( exists $data->{id} and not exists $data->{location} ) {
@@ -189,7 +189,7 @@ post '/edit' => sub {
 		};
 		write_parts(@parts);
 		$self->flash(
-			'status_message' => "$data->{description} edited successfully" );
+			'status_message' => "$data->{description} gespeichert" );
 		$self->redirect_to("/#p$data->{id}");
 	}
 	elsif ( exists $data->{location} and exists $data->{description} ) {
@@ -209,12 +209,12 @@ post '/edit' => sub {
 		);
 		write_parts(@parts);
 		$self->flash(
-			'status_message' => "$data->{description} added successfully" );
+			'status_message' => "$data->{description} gespeichert" );
 		$self->redirect_to('add');
 	}
 	else {
 		# derp
-		$self->flash( 'status_message' => 'Missing data' );
+		$self->flash( 'status_message' => 'Fehlende Daten' );
 	}
 
 	$self->render( 'edit', );
