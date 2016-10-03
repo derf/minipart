@@ -51,10 +51,11 @@ sub read_parts {
 				description => $+{description},
 				id          => $id,
 				location    => $+{place},
+				tag         => {},
 			);
 			if ( $+{tags} ) {
 				$part{tags} = $+{tags};
-				for my $tag ( split( qr{  }, $part{tags} ) ) {
+				for my $tag ( split( qr{ [|] }, $part{tags} ) ) {
 					my ( $key, $value ) = split( qr{:}, $tag );
 					$part{tag}{$key} = $value;
 				}
@@ -82,8 +83,8 @@ sub write_parts {
 
 	for my $part (@parts) {
 		$buffer .= "$part->{location} | $part->{amount} | $part->{description}";
-		if ( $part->{tags} ) {
-			$buffer .= " | $part->{tags}";
+		for my $tag ( sort keys %{ $part->{tag} } ) {
+			$buffer .= " | ${tag}:$part->{tag}{$tag}";
 		}
 		$buffer .= "\n";
 	}
