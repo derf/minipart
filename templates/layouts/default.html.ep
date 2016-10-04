@@ -15,7 +15,7 @@
 
 <nav class="green">
 	<div class="nav-wrapper container">
-		<a href="/" class="brand-logo">minipart</a>
+		<a href="/" class="brand-logo left">minipart</a>
 		<ul id="nav-mobile" class="right">
 		<li><a href="/add"><i class="material-icons">add</i></a></li>
 		<li><a href="/order"><i class="material-icons">list</i></a></li>
