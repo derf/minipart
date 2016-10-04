@@ -160,8 +160,7 @@ post '/edit' => sub {
 		my @parts = read_parts();
 		splice( @parts, $data->{id}, 1 );
 		write_parts(@parts);
-		$self->flash(
-			'status_message' => "$data->{description} gelöscht" );
+		$self->flash( 'status_message' => "$data->{description} gelöscht" );
 		$self->redirect_to('/');
 	}
 	elsif ( exists $data->{id} and not exists $data->{location} ) {
@@ -188,8 +187,7 @@ post '/edit' => sub {
 			tags        => $data->{tags},
 		};
 		write_parts(@parts);
-		$self->flash(
-			'status_message' => "$data->{description} gespeichert" );
+		$self->flash( 'status_message' => "$data->{description} gespeichert" );
 		$self->redirect_to("/#p$data->{id}");
 	}
 	elsif ( exists $data->{location} and exists $data->{description} ) {
@@ -208,8 +206,7 @@ post '/edit' => sub {
 			}
 		);
 		write_parts(@parts);
-		$self->flash(
-			'status_message' => "$data->{description} gespeichert" );
+		$self->flash( 'status_message' => "$data->{description} gespeichert" );
 		$self->redirect_to('add');
 	}
 	else {
@@ -218,6 +215,15 @@ post '/edit' => sub {
 	}
 
 	$self->render( 'edit', );
+};
+
+helper 'navbar_class' => sub {
+	my ( $self, $path ) = @_;
+
+	if ( $self->req->url eq $self->url_for($path) ) {
+		return 'active';
+	}
+	return q{};
 };
 
 helper 'jsonify' => sub {

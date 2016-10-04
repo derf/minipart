@@ -17,9 +17,9 @@
 	<div class="nav-wrapper container">
 		<a href="/" class="brand-logo left">minipart</a>
 		<ul id="nav-mobile" class="right">
-		<li><a href="/" title="Bauteilliste"><i class="material-icons">list</i></a></li>
-		<li><a href="/order" title="Nachbestellen"><i class="material-icons">payment</i></a></li>
-		<li><a href="/add" title="Neues Bauteil"><i class="material-icons">add</i></a></li>
+		<li class="<%= navbar_class('/') %>"><a href="/" title="Bauteilliste"><i class="material-icons">list</i></a></li>
+		<li class="<%= navbar_class('/order') %>"><a href="/order" title="Nachbestellen"><i class="material-icons">payment</i></a></li>
+		<li class="<%= navbar_class('/add') %>"><a href="/add" title="Neues Bauteil"><i class="material-icons">add</i></a></li>
 		</ul>
 	</div>
 </nav>
