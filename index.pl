@@ -143,7 +143,8 @@ get '/add' => sub {
 
 	$self->render(
 		'edit',
-		submit_text => 'Add',
+		submit_text    => 'Add',
+		delete_enabled => 0,
 	);
 };
 
@@ -214,7 +215,10 @@ post '/edit' => sub {
 		$self->flash( 'status_message' => 'Fehlende Daten' );
 	}
 
-	$self->render( 'edit', );
+	$self->render(
+		'edit',
+		delete_enabled => 1,
+	);
 };
 
 helper 'navbar_class' => sub {
